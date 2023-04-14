@@ -162,6 +162,20 @@ function App() {
                 update my skills and further educate myself to help your
                 animals.{" "}
               </Typography>
+              <Typography marginTop={2}>
+                You can view my Competency Certificate by{" "}
+                <span
+                  onClick={() => {
+                    window.open(
+                      "https://s3.eu-west-2.amazonaws.com/esp-animal-massage.co.uk/339729980_564099785703069_4526171289738857492_n.jpg"
+                    );
+                  }}
+                  style={{ fontWeight: "bold", cursor: "pointer" }}
+                >
+                  Clicking Here
+                </span>
+                .
+              </Typography>
               <Box marginTop={4}>
                 <Grid container>
                   <Grid item xs={6}>
@@ -172,7 +186,7 @@ function App() {
                           window.open("https://iaat.org.uk/");
                         }}
                         src={IAAT}
-                        style={{ height: "150px", width: "150px" }}
+                        style={{ height: "100px", width: "100px" }}
                       />
                     </span>
                   </Grid>
@@ -184,7 +198,7 @@ function App() {
                         }}
                         alt=""
                         src={cmg}
-                        style={{ height: "150px", width: "150px" }}
+                        style={{ height: "100px", width: "100px" }}
                       />
                     </span>
                   </Grid>
@@ -319,7 +333,7 @@ function App() {
         }}
       >
         <SpeedDial
-          ariaLabel="Documents"
+          ariaLabel="Consent Forms"
           icon={
             <Tooltip title="View Documents">
               <ArticleIcon />
