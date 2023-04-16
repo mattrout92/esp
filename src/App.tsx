@@ -20,6 +20,7 @@ import horse2 from "./images/horse2.jpg";
 import ArticleIcon from "@mui/icons-material/Article";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import DownloadIcon from "@mui/icons-material/Download";
+import Carousel from "react-material-ui-carousel";
 
 const actions = [
   {
@@ -97,7 +98,14 @@ function App() {
               </Button>
             </Grid>
             <Grid item xs={3}>
-              <Button style={{ color: "#ff9201" }}>Reviews</Button>
+              <Button
+                onClick={() => {
+                  document.getElementById(`reviews`)?.scrollIntoView();
+                }}
+                style={{ color: "#ff9201" }}
+              >
+                Reviews
+              </Button>
             </Grid>
             <Grid item xs={3}>
               <Button style={{ color: "#ff9201" }}>Contact</Button>
@@ -260,10 +268,11 @@ function App() {
             marginTop={2}
             color="white"
             bgcolor="#455d7a"
-            minHeight="80vh"
+            minHeight="100vh"
             textAlign={"center"}
+            id="massage-therapy"
           >
-            <Typography id="massage-therapy" fontWeight={"normal"} variant="h4">
+            <Typography fontWeight={"normal"} variant="h4">
               Massage Therapy
             </Typography>
             <Typography marginTop={5}>
@@ -291,12 +300,12 @@ function App() {
             >
               Learn More
             </Typography>
-            <Stack marginTop={2}>
+            <Stack>
               <Button
                 onClick={() => {
                   setCCM(true);
                 }}
-                sx={{ marginTop: 2 }}
+                sx={{ marginTop: 5 }}
                 variant="contained"
               >
                 Clinical Canine Massage
@@ -305,7 +314,7 @@ function App() {
                 onClick={() => {
                   setEM(true);
                 }}
-                sx={{ marginTop: 2 }}
+                sx={{ marginTop: 5 }}
                 variant="contained"
               >
                 Equine Massage and Rehabilitation
@@ -314,12 +323,146 @@ function App() {
                 onClick={() => {
                   setMTP(true);
                 }}
-                sx={{ marginTop: 2 }}
+                sx={{ marginTop: 5 }}
                 variant="contained"
               >
                 Massage Techniques Practiced
               </Button>
             </Stack>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box
+            padding={4}
+            color="white"
+            bgcolor="#f95959"
+            minHeight="80vh"
+            textAlign={"left"}
+            id="reviews"
+          >
+            <Box
+              marginTop={5}
+              borderRadius="25px"
+              bgcolor="#455d7a"
+              padding={3}
+              minHeight="50vh"
+            >
+              <Carousel navButtonsAlwaysInvisible interval={25000}>
+                <Box paddingBottom={5}>
+                  <Typography textAlign={"right"} fontSize={24}>
+                    Sarah Cochrane
+                  </Typography>
+                  <Typography
+                    textAlign={"center"}
+                    fontStyle="italic"
+                    marginTop={5}
+                  >
+                    "As a vet myself, I have seen the benefits of clinical
+                    canine massage which is why I chose this method of treatment
+                    for my dog Daisy, as she is an old dog she can get sore and
+                    quite stiff. Daisy really enjoys massage, Ellie is so
+                    patient with her and recognises when to give Daisy a break
+                    or change positions to make her more comfortable. Ellie is
+                    great at reading Daisy's body language, detecting where she
+                    is sore through muscle injuries. Daisy had a tendency to
+                    pace in her gait when she was uncomfortable, since massage,
+                    she has reduced her pacing greatly. She is also now more
+                    willing to jump onto chairs and isn't struggling, she also
+                    attempts to jump into the top crates in the van which she
+                    hasn't done in years! Her behaviour has also improved as she
+                    is more patient with my puppy so she is obviously feeling
+                    better."
+                  </Typography>
+                </Box>
+                <Box paddingBottom={10}>
+                  <Typography textAlign={"right"} fontSize={24}>
+                    Lindsay Ford
+                  </Typography>
+                  <Typography
+                    textAlign={"center"}
+                    fontStyle="italic"
+                    marginTop={5}
+                  >
+                    "Millie gets massage treatments regularly for her Luxating
+                    Patella. Millie is quite an anxious dog but I was pleasantly
+                    surprised how well she responded to massage. She is always
+                    really pleased to see Ellie, this says a lot as she isn't
+                    fond of people. Millie's knee has not luxated once since her
+                    first massage treatment (6 months ago) and she seems much
+                    happier and more flexible now. Millie has regular massage
+                    treatments to keep her happy and mobile."
+                  </Typography>
+                </Box>
+                <Box paddingBottom={10}>
+                  <Typography textAlign={"right"} fontSize={24}>
+                    Ian and Valerie Peal
+                  </Typography>
+                  <Typography
+                    textAlign={"center"}
+                    fontStyle="italic"
+                    marginTop={5}
+                  >
+                    "Louis is blind but wags his tail when Ellie comes to see
+                    him. Massage is proving to be very beneficial to him as he
+                    is a stiff old boy with a sore back. Ellie's great with him
+                    and gets on the floor with him, stroking him slowly to gain
+                    his trust. Since his first massage, Louis' hydro therapist
+                    has noticed an improvement in Louis muscles and his
+                    mobility, he also no longer presents the tightness and knots
+                    he had previously. My other dog, Millie, also gets seen by
+                    Ellie. Millie is very anxious and doesn't like strangers but
+                    Ellie was able to build trust and get closer to Millie.
+                    Ellie is very patient, uses calming tones and moves slowly
+                    to not startle Millie. Both dogs are happier since being
+                    massaged, have better movement and have more energy now."
+                  </Typography>
+                </Box>
+                <Box paddingBottom={10}>
+                  <Typography textAlign={"right"} fontSize={24}>
+                    Jessica Betts-Williams
+                  </Typography>
+                  <Typography
+                    textAlign={"center"}
+                    fontStyle="italic"
+                    marginTop={5}
+                  >
+                    "I had heard about the benefits of massage for dogs so I was
+                    excited to see how it could help my dog Jack, after
+                    recovering from an IVDD operation last year. Jack loves his
+                    massages and relaxed straight away for Ellie. Ellie handled
+                    him very well, as if he was her own dog, with respect and
+                    compassion. I've seen many improvements in Jack since his
+                    first massage, he is now more comfortable, happier in
+                    himself, more energetic and much more mobile."
+                  </Typography>
+                </Box>
+                <Box paddingBottom={10}>
+                  <Typography textAlign={"right"} fontSize={24}>
+                    Chris Kerton
+                  </Typography>
+                  <Typography
+                    textAlign={"center"}
+                    fontStyle="italic"
+                    marginTop={5}
+                  >
+                    "Ellie has been involved in horse and dog sports since she
+                    was very young and has always had a fantastic way with our
+                    dogs. She is obviously gifted at what she does (our dogs are
+                    so relaxed during treatments), but she is also incredibly
+                    patient, gentle and kind to both of my dogs. I've noticed a
+                    significant improvement in their performance since they
+                    started receiving regular massages from Ellie. Cop
+                    especially, has been running so much better in recent months
+                    since she started working on him. With all the work the dogs
+                    get through, the massages also help reduce the risk of
+                    injury. Massage is not only useful for competing dogs
+                    though, it can be especially useful for aging dogs too. If
+                    you want to give your furry friend the girt of health and
+                    relaxation, I highly recommend Ellie's services."
+                  </Typography>
+                </Box>
+              </Carousel>
+            </Box>
           </Box>
         </Grid>
       </Grid>
