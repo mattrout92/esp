@@ -104,7 +104,7 @@ function App() {
                 }}
                 style={{ color: "#ff9201" }}
               >
-                Reviews
+                Testimonials
               </Button>
             </Grid>
             <Grid item xs={3}>
