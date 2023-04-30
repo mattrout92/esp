@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  esp
+  Sample SAM Template for the esp
+Parameters:
+  ENV:
+    Type: String
+    Default: prod
+    Description: "The environment for the app is running on"
+Globals:
+  Function:
+    Environment:
+      Variables:
+        ENV:
+          Ref: ENV
+    Runtime: go1.x
+    Tracing: Active
+    Timeout: 5
+Resources:
+  APIGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      Models:
+      Name:
+        Fn::Sub: "APIGatewayESP-${ENV}"
+      StageName:
+        Fn::Sub: "${ENV}"
+      Cors:
+        AllowMethods: "'POST, OPTIONS, GET, DELETE, PUT'"
+        AllowHeaders: "'X-Forwarded-For,Content-Type,Authorization'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
+        AllowCredentials: False
+      Domain:
+        DomainName:
+          Fn::Sub: "api.esp-animal-massage.co.uk"
+        CertificateArn: "arn:aws:acm:eu-west-2:528288553621:certificate/3d57b791-1c43-4cca-8616-fbc8f183d47b"
+        Route53:
+          HostedZoneId: "Z06933122L2FWM7KO12L3"
+  APILambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: AWSXRayWriteOnlyAccess
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - xray:PutTraceSegments
+                  - xray:PutTelemetryRecords
+                  - xray:GetSamplingRules
+                  - xray:GetSamplingTargets
+                  - xray:GetSamplingStatisticSummaries
+                Resource: "*"
+        - PolicyName: AWSLambdaBasicExecutionRole
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: "*"
+        - PolicyName: SESSendEmails
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ses:SendEmail
+                  - ses:SendRawEmail
+                Resource: "*"
+  APIFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName:
+        Fn::Sub: "esp-send-email-${ENV}"
+      CodeUri: api/
+      Handler: api
+      Timeout: 30
+      Role: !GetAtt APILambdaExecutionRole.Arn
+      Events:
+        HttpPost:
+          Type: Api
+          Properties:
+            Path: /send-email
+            Method: post
+            RestApiId:
+              Ref: APIGateway
+

@@ -1,0 +1,12 @@
+version = 0.1
+[prod]
+[prod.deploy]
+[prod.deploy.parameters]
+stack_name = "esp-api"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1qzkejy9kwsij"
+s3_prefix = "esp-api"
+region = "eu-west-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "ENV=\"prod\""
+image_repositories = []

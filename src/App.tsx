@@ -7,6 +7,7 @@ import {
   Modal,
   SpeedDial,
   SpeedDialAction,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -21,6 +22,8 @@ import ArticleIcon from "@mui/icons-material/Article";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import DownloadIcon from "@mui/icons-material/Download";
 import Carousel from "react-material-ui-carousel";
+import axios from "axios";
+import { CheckCircle } from "@mui/icons-material";
 
 const actions = [
   {
@@ -66,10 +69,35 @@ const style = {
   p: 4,
 };
 
+type email = {
+  name: string;
+  email: string;
+  tel: string;
+  subject: string;
+  content: string;
+};
+
 function App() {
   const [ccm, setCCM] = useState<boolean>(false);
   const [em, setEM] = useState<boolean>(false);
   const [mtp, setMTP] = useState<boolean>(false);
+  const [eml, setEml] = useState<email>({
+    name: "",
+    email: "",
+    tel: "",
+    subject: "",
+    content: "",
+  } as email);
+  const [emailSent, setEmailSent] = useState<boolean>(false);
+
+  const sendEmail = async () => {
+    axios.post("https://api.esp-animal-massage.co.uk/send-email", eml);
+    setEmailSent(true);
+  };
+
+  const handleChange = (e: any) => {
+    setEml({ ...eml, [e.target.name]: e.target.value });
+  };
 
   return (
     <Box>
@@ -108,7 +136,14 @@ function App() {
               </Button>
             </Grid>
             <Grid item xs={3}>
-              <Button style={{ color: "#ff9201" }}>Contact</Button>
+              <Button
+                onClick={() => {
+                  document.getElementById(`contact`)?.scrollIntoView();
+                }}
+                style={{ color: "#ff9201" }}
+              >
+                Contact
+              </Button>
             </Grid>
           </Grid>
         </Box>
@@ -462,6 +497,113 @@ function App() {
                   </Typography>
                 </Box>
               </Carousel>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box
+            bgcolor="#e3e3e3"
+            minHeight="100vh"
+            textAlign={"center"}
+            id="contact"
+          >
+            {emailSent ? (
+              <>
+                <Typography style={{ paddingTop: "200px" }} variant="h6">
+                  Thanks, we have now received your message! Ellie will be in
+                  contact with you as soon as possible.
+                </Typography>
+                <CheckCircle
+                  htmlColor="green"
+                  fontSize="inherit"
+                  style={{ fontSize: "200" }}
+                />
+              </>
+            ) : (
+              <>
+                <Typography paddingTop={2} fontWeight={"normal"} variant="h4">
+                  Contact Ellie
+                </Typography>
+                <Grid container padding={5} spacing={2}>
+                  <Grid item xs={12} lg={6}>
+                    <TextField
+                      name="name"
+                      value={eml.name}
+                      fullWidth
+                      label="Your Name"
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} lg={6}>
+                    <TextField
+                      value={eml.email}
+                      name="email"
+                      fullWidth
+                      label="Email"
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} lg={6}>
+                    <TextField
+                      value={eml.tel}
+                      name="tel"
+                      fullWidth
+                      label="Phone No."
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} lg={6}>
+                    <TextField
+                      value={eml.subject}
+                      name="subject"
+                      fullWidth
+                      label="Subject"
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      value={eml.content}
+                      name="content"
+                      fullWidth
+                      label="Content"
+                      onChange={handleChange}
+                      multiline
+                      rows={10}
+                      maxRows={10}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box marginTop={5} textAlign={"left"}>
+                      <Button
+                        disabled={
+                          eml.name === "" ||
+                          eml.content === "" ||
+                          (eml.tel === "" && eml.email === "")
+                        }
+                        sx={{
+                          textAlign: "left",
+                          minWidth: "25vw",
+                        }}
+                        variant="contained"
+                        onClick={sendEmail}
+                      >
+                        Send
+                      </Button>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </>
+            )}
+            <Box
+              sx={{
+                bottom: 0,
+                left: 0,
+              }}
+            >
+              <Typography marginLeft={1} textAlign={"left"} fontSize="8px">
+                Web Design by Matt Rout. Mob: 07984598308
+              </Typography>
             </Box>
           </Box>
         </Grid>
